@@ -1,23 +1,34 @@
 body{
-    background-image: url(image.jpg);    
+    background-image: url(image4.jpg);    
     background-repeat: no-repeat;
     background-position: center;
+    background-size: cover;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     text-align: center;
 }
 
 @media (max-width: 768px) {
     #AllCourses {
         grid-template-columns: 1fr;
+        max-height: 30vh;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+    h1 {
+        margin-top: 10px;
     }
 }
 
 .overlay {
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.1);
+    background-size: cover;
+    backdrop-filter: blur(10px);  
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     height: 100vh;
-    padding: 20px;
     position: relative;
+    margin: 0;
+    padding: 20px;
  }
 
 h1 {
@@ -30,41 +41,53 @@ h1 {
 
 }
 
-#Result {
+.container1{
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     max-width: 600px;          
-    margin: 15px auto 0;       
-    background-color: rgba(0, 225, 255, 0.35); 
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    text-align: left;
+    margin: 15px auto 0;
     color: aliceblue;
     font-weight: bold;
+
+
+
+}
+
+#Result {       
+    text-align: left;
+    padding: 20px;
+    padding-bottom: 30px;
+    
 }
 
 #Result p {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+
 }
 
 #AllCourses {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: rgba(0, 225, 255, 0.205);
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    max-height: 55vh;  
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 .course {
     color:aliceblue;
     border: none;
     padding: 10px;
-    border-radius: 5px;
-    background-color: rgba(0, 225, 255, 0.212);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -76,13 +99,16 @@ h1 {
 .course label {
     text-align: center;
     font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
 }
 
 .course input {
     width: 90%;
     padding: 4px;
+    border-radius: 5px;
     border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     color: rgba(0, 0, 0, 0.8);
     background-color:rgba(255, 255, 255, 0.75);
 }
@@ -93,16 +119,26 @@ button {
 
 .addBtn, .resetBtn, .resultBtn{
     padding: 10px 20px;
-    background-color: rgba(0, 225, 255, 0.205);
+    background-color: rgba(255, 255, 255, 0.2);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     margin: 5px;
     font-weight: bold;
 }
+.addBtn{
+    box-shadow: 0 5px 15px rgba(0, 225, 255, 0.2);
+}
+.resultBtn{
+    box-shadow: 0 5px 15px rgba(30, 255, 0, 0.2);
+}
+.resetBtn{
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+}
 .addBtn:hover{
     background-color: rgba(0, 225, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 225, 255, 0.4);
 }
 .addBtn:active{
     background-color: rgba(0, 225, 255, 0.7);
@@ -110,6 +146,7 @@ button {
 
 .resultBtn:hover{
     background-color: rgba(30, 255, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(30, 255, 0, 0.4);
 }
 .resultBtn:active{
     background-color: rgba(30, 255, 0, 0.7);
@@ -117,6 +154,7 @@ button {
 
 .resetBtn:hover{
     background-color: rgba(255, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
 }
 .resetBtn:active{
     background-color: rgba(255, 0, 0, 0.7);
@@ -128,6 +166,9 @@ footer {
   padding: 5px;
   text-align: center;
   font-family: Arial, sans-serif;
+  bottom: 0;
+  position: relative;
+  width: 100%;
 }
 
 .footer-content {

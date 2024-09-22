@@ -55,22 +55,24 @@ function resetCalc(){
             <button onclick="printResult()" class="resultBtn">Calculate CGPA</button>
             <button onclick="resetCalc()" class="resetBtn">Reset Program</button>
         </div>
-        <div id="Result">
-            <p>CGPA : </p>
-        </div>
-        <div id="AllCourses">
-            <div class="course">
-                <div>
-                    <label for="course1">Course Name:</label>
-                    <input type="text" id="course1" placeholder="(optional)">
-                </div>
-                <div>
-                    <label for="credit1">Credit Hour:</label>
-                    <input type="number" id="credit1" step="0.25" min="1" max="10" class="course-credit">
-                </div>
-                <div>
-                    <label for="cgpa1">Point:</label>
-                    <input type="number" id="cgpa1" step="0.01" min="0" max="10" class="course-cgpa">
+        <div class="container1">
+            <div id="Result">
+                <p aria-label="Calculated CGPA">CGPA: </p>
+            </div>
+            <div id="AllCourses">
+                <div class="course">
+                    <div>
+                        <label for="course1">Course Name:</label>
+                        <input type="text" id="course1" placeholder="(optional)">
+                    </div>
+                    <div>
+                        <label for="credit1">Credit Hour:</label>
+                        <input type="number" id="credit1" step="0.25" min="1" max="10" class="course-credit">
+                    </div>
+                    <div>
+                        <label for="cgpa1">Point:</label>
+                        <input type="number" id="cgpa1" step="0.01" min="0" max="10" class="course-cgpa">
+                    </div>
                 </div>
             </div>
         </div>
