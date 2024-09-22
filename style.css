@@ -8,7 +8,7 @@ body{
     text-align: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 755px) {
     #AllCourses {
         grid-template-columns: 1fr;
         max-height: 30vh;
@@ -168,7 +168,6 @@ footer {
   font-family: Arial, sans-serif;
   bottom: 0;
   position: relative;
-  width: 100%;
 }
 
 .footer-content {
