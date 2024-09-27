@@ -45,7 +45,7 @@ h1 {
     text-align: left;
     padding: 20px;
     padding-bottom: 30px;
-    
+    margin-bottom: 20px;
 }
 
 #Result p {
@@ -64,7 +64,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    max-height: 60vh;  
+    max-height: 70vh;  
     overflow: auto;
     overflow-x: hidden;
 }
@@ -161,10 +161,6 @@ button {
         max-height: 45vh;
         overflow: scroll;
         overflow-x: hidden;
-    }
-    #Result {
-        padding-bottom: 30px;
-        
     }
     h1 {
         margin-top: 10px;
