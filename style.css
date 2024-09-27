@@ -44,8 +44,6 @@ h1 {
 #Result {       
     text-align: left;
     padding: 20px;
-    padding-bottom: 30px;
-    margin-bottom: 20px;
 }
 
 #Result p {
@@ -64,7 +62,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    max-height: 70vh;  
+    max-height: 65vh;  
     overflow: auto;
     overflow-x: hidden;
 }
