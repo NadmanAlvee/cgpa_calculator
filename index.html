@@ -3,55 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CGPA CALCULATOR</title>
+    <title>CGPA Calculator | Modern Grade & Credit Tracker</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <!-- Modern Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="overlay">
-        <h1>CGPA CALCULATOR</h1>
-        <div>
-            <button id="addBtn" class="addBtn">Add Course</button>
-            <button id="rmvBtn" class="rmvBtn">Remove Course</button>
-            <button onclick="printResult()" class="resultBtn">Calculate CGPA</button>
-            <button onclick="resetCalc()" class="resetBtn">Reset Program</button>
-        </div>
-        <div class="container1">
-            <div id="Result">
-                <p aria-label="Calculated CGPA">CGPA: </p>
-            </div>
-            <div id="AllCourses">
-                <div class="course">
-                    <div>
-                        <label for="course1">Course Name:</label>
-                        <input type="text" id="course1" placeholder="(optional)">
+    <div class="background-decorations" aria-hidden="true">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="app-wrapper">
+        <div class="calculator-card">
+            <!-- App Header -->
+            <header class="card-header">
+                <div class="brand-badge">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Academic Tools</span>
+                </div>
+                <h1 class="card-title">CGPA Calculator</h1>
+                <p class="card-subtitle">Track your academic performance and calculate your weighted Grade Point Average with precision.</p>
+            </header>
+
+            <!-- Quick Scale Reference Bar -->
+            <section class="scale-reference" aria-label="Grading Scale Quick Guide">
+                <div class="scale-header">
+                    <span class="scale-title"><i class="fas fa-circle-info"></i> Grading Scale:</span>
+                    <button type="button" class="btn-scale-modal" onclick="toggleScaleModal()" title="View full percentage table">
+                        <i class="fas fa-table-list"></i> Full Scale
+                    </button>
+                </div>
+                <div class="scale-tags">
+                    <span class="scale-tag"><strong class="tag-grade">A+</strong><span class="tag-pts">4.00</span></span>
+                    <span class="scale-tag"><strong class="tag-grade">A</strong><span class="tag-pts">3.75</span></span>
+                    <span class="scale-tag"><strong class="tag-grade">B+</strong><span class="tag-pts">3.50</span></span>
+                    <span class="scale-tag"><strong class="tag-grade">B</strong><span class="tag-pts">3.25</span></span>
+                    <span class="scale-tag"><strong class="tag-grade">C+</strong><span class="tag-pts">3.00</span></span>
+                    <span class="scale-tag"><strong class="tag-grade">C</strong><span class="tag-pts">2.75</span></span>
+                    <span class="scale-tag"><strong class="tag-grade">D+</strong><span class="tag-pts">2.50</span></span>
+                    <span class="scale-tag"><strong class="tag-grade">D</strong><span class="tag-pts">2.25</span></span>
+                    <span class="scale-tag tag-danger"><strong class="tag-grade">F</strong><span class="tag-pts">0.00</span></span>
+                </div>
+            </section>
+
+            <!-- Result Showcase Section -->
+            <div id="Result" class="result-container" role="region" aria-live="polite">
+                <div class="result-placeholder">
+                    <div class="result-placeholder-icon">
+                        <i class="fas fa-chart-pie"></i>
                     </div>
-                    <div>
-                        <label for="credit1">Credit Hour:</label>
-                        <input type="number" id="credit1" step="0.25" min="1" max="10" class="course-credit">
-                    </div>
-                    <div>
-                        <label for="cgpa1">Point:</label>
-                        <input type="number" id="cgpa1" step="0.01" min="0" max="10" class="course-cgpa">
+                    <div class="result-placeholder-text">
+                        <h3>No Calculation Yet</h3>
+                        <p>Fill in your courses below and click <strong>Calculate CGPA</strong> to view your GPA score.</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Action Controls Toolbar -->
+            <div class="toolbar" role="toolbar" aria-label="Course Controls">
+                <div class="toolbar-group primary-actions">
+                    <button id="addBtn" class="btn btn-add addBtn" title="Add another course">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Course</span>
+                    </button>
+                    <button id="rmvBtn" class="btn btn-remove rmvBtn" title="Remove the last course">
+                        <i class="fas fa-trash-can"></i>
+                        <span>Remove Last</span>
+                    </button>
+                </div>
+                <div class="toolbar-group compute-actions">
+                    <button onclick="printResult()" class="btn btn-calculate resultBtn" title="Calculate overall CGPA">
+                        <i class="fas fa-calculator"></i>
+                        <span>Calculate CGPA</span>
+                    </button>
+                    <button onclick="resetCalc()" class="btn btn-reset resetBtn" title="Reset all course fields">
+                        <i class="fas fa-arrow-rotate-right"></i>
+                        <span>Reset</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Courses List Container -->
+            <section class="courses-section">
+                <div class="section-title-bar">
+                    <h2><i class="fas fa-layer-group"></i> Course List</h2>
+                    <span class="courses-count-badge" id="coursesCountBadge">1 Course</span>
+                </div>
+                
+                <div id="AllCourses" class="courses-grid">
+                    <div class="course">
+                        <div class="course-header-row">
+                            <span class="course-badge"><i class="fas fa-bookmark"></i> Course 1</span>
+                        </div>
+                        <div class="course-inputs-row">
+                            <div class="input-group course-name-group">
+                                <label for="course1">Course Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-book input-icon"></i>
+                                    <input type="text" id="course1" placeholder="e.g. Data Structures (optional)">
+                                </div>
+                            </div>
+                            <div class="input-group course-credit-group">
+                                <label for="credit1">Credit Hours <span class="required-star">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-clock input-icon"></i>
+                                    <input type="number" id="credit1" step="0.25" min="0.5" max="10" placeholder="e.g. 3.0" class="course-credit" required>
+                                </div>
+                            </div>
+                            <div class="input-group course-grade-group">
+                                <label for="grade1">Letter Grade</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-award input-icon"></i>
+                                    <select id="grade1" class="course-grade-select" onchange="syncGradeToPoint(this, 1)">
+                                        <option value="">Select</option>
+                                        <option value="4.00">A+ (4.00)</option>
+                                        <option value="3.75">A (3.75)</option>
+                                        <option value="3.50">B+ (3.50)</option>
+                                        <option value="3.25">B (3.25)</option>
+                                        <option value="3.00">C+ (3.00)</option>
+                                        <option value="2.75">C (2.75)</option>
+                                        <option value="2.50">D+ (2.50)</option>
+                                        <option value="2.25">D (2.25)</option>
+                                        <option value="0.00">F (0.00)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group course-point-group">
+                                <label for="cgpa1">Grade Point <span class="required-star">*</span></label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-star input-icon"></i>
+                                    <input type="number" id="cgpa1" step="0.01" min="0" max="4.00" placeholder="e.g. 3.75" class="course-cgpa" oninput="syncPointToGrade(this, 1)" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
-    <footer>
-        <div class="footer-content">
-          <ul class="social-links">
-            <li><a href="https://facebook.com/nadman.alvee" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
-            <li><a href="https://github.com/NadmanAlvee" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-            <li><i class="fas fa-envelope"></i> nadmanalvee@gmail.com</a></li>
-          </ul>
+
+        <!-- Full Grading Scale Modal -->
+        <div id="scaleModal" class="modal-backdrop" aria-hidden="true" onclick="handleModalBackdropClick(event)">
+            <div class="modal-card" role="dialog" aria-labelledby="scaleModalTitle" aria-modal="true">
+                <div class="modal-header">
+                    <div class="modal-title-wrap">
+                        <i class="fas fa-table-list modal-icon"></i>
+                        <div>
+                            <h3 id="scaleModalTitle">Official Grading Scale</h3>
+                            <p class="modal-desc">Institutional numerical percentage, letter grade & grade point mapping</p>
+                        </div>
+                    </div>
+                    <button class="modal-close-btn" onclick="toggleScaleModal()" aria-label="Close grading scale modal">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="scale-table">
+                        <thead>
+                            <tr>
+                                <th>Numerical %</th>
+                                <th>Letter Grade</th>
+                                <th>Grade Point</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>90 - 100</td><td><span class="badge-grade grade-a">A+</span></td><td><strong>4.00</strong></td></tr>
+                            <tr><td>85 - &lt; 90</td><td><span class="badge-grade grade-a">A</span></td><td><strong>3.75</strong></td></tr>
+                            <tr><td>80 - &lt; 85</td><td><span class="badge-grade grade-b">B+</span></td><td><strong>3.50</strong></td></tr>
+                            <tr><td>75 - &lt; 80</td><td><span class="badge-grade grade-b">B</span></td><td><strong>3.25</strong></td></tr>
+                            <tr><td>70 - &lt; 75</td><td><span class="badge-grade grade-c">C+</span></td><td><strong>3.00</strong></td></tr>
+                            <tr><td>65 - &lt; 70</td><td><span class="badge-grade grade-c">C</span></td><td><strong>2.75</strong></td></tr>
+                            <tr><td>60 - &lt; 65</td><td><span class="badge-grade grade-d">D+</span></td><td><strong>2.50</strong></td></tr>
+                            <tr><td>50 - &lt; 60</td><td><span class="badge-grade grade-d">D</span></td><td><strong>2.25</strong></td></tr>
+                            <tr><td>&lt; 50</td><td><span class="badge-grade grade-f">F</span></td><td><strong>0.00</strong></td></tr>
+                            <tr class="scale-row-muted"><td>Incomplete</td><td><span class="badge-grade grade-neutral">I</span></td><td>&mdash;</td></tr>
+                            <tr class="scale-row-muted"><td>Withdrawal</td><td><span class="badge-grade grade-neutral">W</span></td><td>&mdash;</td></tr>
+                            <tr class="scale-row-muted"><td>Unofficially Withdrawal</td><td><span class="badge-grade grade-neutral">UW</span></td><td>&mdash;</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="footer-bottom">
-          <p>&copy; 2024 Nadman Alvee. All Rights Reserved.</p>
-        </div>
-    </footer>
+
+        <!-- Modern Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span>CGPA Calculator</span> &bull; <span>Built with Precision</span>
+                </div>
+                <ul class="social-links">
+                    <li><a href="https://facebook.com/nadman.alvee" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="https://github.com/NadmanAlvee" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a></li>
+                    <li><a href="mailto:nadmanalvee@gmail.com"><i class="fas fa-envelope"></i> nadmanalvee@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nadman Alvee. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </main>
+
     <script src="index.js"></script>
 </body>
 </html>
